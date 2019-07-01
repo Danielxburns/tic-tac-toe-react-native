@@ -25,6 +25,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "a simple tic-tac-toe game",
+    "githubUrl": "https://github.com/Danielxburns/tic-tac-toe-react-native"
   }
 }
