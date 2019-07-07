@@ -13,6 +13,7 @@ export default class App extends React.Component {
         [0, 0, 0]
       ],
       currentPlayer: 1,
+      moves: 0,
     }
 
   }
@@ -30,6 +31,7 @@ export default class App extends React.Component {
         [0, 0, 0]
       ],
       currentPlayer: 1,
+      moves: 0,
       })
     }
 
@@ -71,11 +73,12 @@ export default class App extends React.Component {
       var value = this.state.gameState[row][col];
       if (value !== 0) { return; }
 
-      // get player and set tile
+      // get player and set tile and increment # of moves
       var currentPlayer = this.state.currentPlayer;
       var board = this.state.gameState.slice();
       board[row][col] = currentPlayer;
-      this.setState({gameState: board})
+      this.setState({gameState: board, moves: this.state.moves + 1});
+      // this.setState({moves: this.state.moves++})
 
       // switch to next player
       var nextPlayer = (currentPlayer === 1) ? -1 : 1;
@@ -83,12 +86,16 @@ export default class App extends React.Component {
 
       // check for winners
       var winner = this.getWinner();
-      var winnerSaying = ["Woohooo!","YYYYYYAAAAAAAAAAAAAAA!!!!!!!!!!!!!", "You crushed it!", "You rule!"];
+      var winnerSaying = ["Woohooo!","YYYYYYAAAAAAAAAAAAAAA!!!!!!!!!!!!!", "You crushed it!", "You rule!", "Nice one!"];
       if (winner === 1) {
         Alert.alert("X Wins!\n" + winnerSaying[Math.floor(Math.random() * winnerSaying.length)]);
         this.initializeGame();
       } else if (winner === -1) {
         Alert.alert("O Wins!\n" + winnerSaying[Math.floor(Math.random() * winnerSaying.length)]);
+        this.initializeGame();
+      }
+      if (this.state.moves === 8) {
+        Alert.alert("It\'s a tie!");
         this.initializeGame();
       }
 
